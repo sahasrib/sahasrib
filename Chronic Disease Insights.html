@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diabetes Awareness Portal</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #f6d365, #fda085);
+      padding: 0;
+      margin: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input, select, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #27ae60;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    .chart-container {
+      margin-top: 40px;
+    }
+    .info {
+      margin-top: 40px;
+      background: #f1f1f1;
+      padding: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Diabetes Awareness Portal</h1>
+
+  <form id="loginForm">
+    <label>Full Name: <input type="text" required></label>
+    <label>Age: <input type="number" id="ageInput" required></label>
+    <label>Do you have diabetes? 
+      <select>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+      <form id="diabetesForm" class="hidden" onsubmit="event.preventDefault(); submitForm();">
+    
+        <label>Gender:</label>
+        <select>
+          <option>M</option>
+          <option>F</option>
+        </select>
+        <label>Blood Pressure:</label><input type="text">
+        <label>A1C:</label><input type="text">
+        <label>Medical Needs:</label><textarea></textarea>
+    </label>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="chart-container">
+    <h2>Most Affected Age Groups</h2>
+    <canvas id="ageChart" height="300"></canvas>
+  </div>
+</div>
+
+<script>
+  // Age values from your dataset
+  const ageGroups = {
+    '20-29': 0,
+    '30-39': 0,
+    '40-49': 0,
+    '50-59': 0,
+    '60-69': 0,
+    '70+': 0
+  };
+
+  const data = [
+    59, 48, 72, 24, 50, 23, 36, 66, 60, 29
+  ];
+
+  data.forEach(age => {
+    if (age < 30) ageGroups['20-29']++;
+    else if (age < 40) ageGroups['30-39']++;
+    else if (age < 50) ageGroups['40-49']++;
+    else if (age < 60) ageGroups['50-59']++;
+    else if (age < 70) ageGroups['60-69']++;
+    else ageGroups['70+']++;
+  });
+
+  const ctx = document.getElementById('ageChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: Object.keys(ageGroups),
+      datasets: [{
+        label: 'Cases',
+        data: Object.values(ageGroups),
+        backgroundColor: [
+          '#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0', '#ffb3e6'
+        ]
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetes and Chronic Diseases Information</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f9f9f9, #e6f2ff);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: #007acc;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+    .content {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #007acc;
+      margin-top: 30px;
+    }
+    ul {
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Understanding Diabetes and Chronic Diseases</h1>
+    <p>Awareness. Prevention. Management.</p>
+  </header>
+
+  <div class="content">
+    <h2>🔬 About Diabetes</h2>
+    <p><strong>Diabetes mellitus</strong> is a chronic (long-lasting) health condition that affects how your body turns food into energy. There are three main types of diabetes:</p>
+    <ul>
+      <li><strong>Type 1 Diabetes</strong> – Autoimmune, requires insulin daily, usually in children and young adults.</li>
+      <li><strong>Type 2 Diabetes</strong> – Most common, often linked to obesity and inactivity, may require lifestyle changes and medication.</li>
+      <li><strong>Gestational Diabetes</strong> – Develops during pregnancy, risk factor for Type 2 diabetes later.</li>
+    </ul>
+
+    <h3>Common Symptoms:</h3>
+    <ul>
+      <li>Frequent urination</li>
+      <li>Excessive thirst and hunger</li>
+      <li>Fatigue</li>
+      <li>Blurred vision</li>
+      <li>Slow healing of wounds</li>
+    </ul>
+
+    <h3>Risk Factors:</h3>
+    <ul>
+      <li>Overweight or obesity</li>
+      <li>Family history</li>
+      <li>Age over 45</li>
+      <li>Sedentary lifestyle</li>
+      <li>High blood pressure or cholesterol</li>
+    </ul>
+
+    <h2>💊 Other Chronic Diseases</h2>
+    <ul>
+      <li><strong>Hypertension</strong> – Affects ~70% of adults with diabetes.</li>
+      <li><strong>Cardiovascular Disease</strong> – Leading cause of death in diabetes patients.</li>
+      <li><strong>Chronic Kidney Disease</strong> – 1 in 3 adults with diabetes may develop this.</li>
+      <li><strong>Neuropathy</strong> – Causes pain, tingling, or numbness, especially in feet and hands.</li>
+      <li><strong>Retinopathy</strong> – Can lead to blindness if not treated.</li>
+    </ul>
+
+    <h2>🌍 Global Impact</h2>
+    <p>According to the <strong>IDF Diabetes Atlas</strong>:</p>
+    <ul>
+      <li>537 million adults were living with diabetes in 2021.</li>
+      <li>Expected to rise to 643 million by 2030.</li>
+      <li>1 in 2 adults with diabetes are undiagnosed.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
